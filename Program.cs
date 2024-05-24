@@ -1,12 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+
 using Gruppe5.Data;
+using Gruppe5.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Gruppe5Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Gruppe5Context") ?? throw new InvalidOperationException("Connection string 'Gruppe5Context' not found.")));
 
-// Add services to the container.
+/*// Add services to the container.
+builder.Services.AddControllersWithViews();*/
+
+builder.Services.AddHttpClient<WeatherService>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<WeatherService>();
 
 var app = builder.Build();
 
