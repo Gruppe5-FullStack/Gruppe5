@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Gruppe5.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Gruppe5Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Gruppe5Context") ?? throw new InvalidOperationException("Connection string 'Gruppe5Context' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
